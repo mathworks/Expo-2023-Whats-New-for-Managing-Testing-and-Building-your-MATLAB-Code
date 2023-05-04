@@ -41,6 +41,31 @@ classdef PokerHand < handle
 
             obj.determineHandTypeAndStrength();
         end
+
+        function handIsGreater = gt(obj,otherHand)
+            handIsGreater = obj.Strength > otherHand.Strength;
+        end
+        function handIsGreaterOrEqual = ge(obj,otherHand)
+            handIsGreaterOrEqual = obj.Strength >= otherHand.Strength;
+        end
+        function handIsLesser = lt(obj,otherHand)
+            handIsLesser = obj.Strength < otherHand.Strength;
+        end
+        function handIsLesserOrEqual = le(obj,otherHand)
+            handIsLesserOrEqual = obj.Strength <= otherHand.Strength;
+        end
+        function handIsEqual = eq(obj,otherHand)
+            handIsEqual = obj.Strength == otherHand.Strength;
+        end
+        function comparisonMessage = compareHands(obj,otherHand)
+            if obj == otherHand
+                comparisonMessage = "Hands are equal in strength";
+            elseif obj > otherHand
+                comparisonMessage = "First hand beats second hand";
+            else
+                comparisonMessage = "Second hand beats first hand";
+            end
+        end
     end
 
     methods (Access = private)
