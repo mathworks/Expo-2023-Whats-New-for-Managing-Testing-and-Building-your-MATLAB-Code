@@ -11,6 +11,10 @@ classdef PokerHand < handle
         Cards
     end
 
+    properties (Access=private)
+        Strength = 0;
+    end
+
     methods
         function obj = PokerHand(cards)
             %POKERHAND Creates a poker hand from a set of cards
@@ -35,13 +39,27 @@ classdef PokerHand < handle
                 obj.Cards = [];
             end
 
-            obj.determineHandType();
+            obj.determineHandTypeAndStrength();
         end
     end
 
     methods (Access = private)
-        function determineHandType(obj)
-            %DETERMINEHANDTYPE Determines hand type
+        function determineHandTypeAndStrength(obj)
+            %DETERMINEHANDTYPEANDSTRENGTH Determines hand type and strength
+            %of hand using a points-based strength system
+            % 
+            % Points:
+            %   -- Invalid       = 0 points
+            %   -- Single        = 100 + (value of highest card)
+            %   -- Pair          = 200 + (value of pair)
+            %   -- TwoPair       = 250 + (value of highest pair) + (value of lower pair)/100
+            %   -- ThreeOfAKind  = 300 + (value of three of a kind)
+            %   -- Straight      = 400 + (value of highest card in straight)
+            %   -- Flush         = 500 + (value of highest card)
+            %   -- FullHouse     = 600 + (value of three of a kind)
+            %   -- FourOfAKind   = 700 + (value of four of a kind)
+            %   -- StraightFlush = 800 + (value of highest card)
+            %   -- RoyalFlush    = same as StraightFlush
 
             % Exit early if "Empty"
             if height(obj.Cards) == 0
@@ -72,56 +90,67 @@ classdef PokerHand < handle
                 obj.Type = "RoyalFlush";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
+                obj.Strength = 800 + maxCardValue;
 
             elseif isStraight && isFlush
                 obj.Type = "StraightFlush";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
+                obj.Strength = 800 + maxCardValue;
 
             elseif ~isempty(quadVals)
                 obj.Type = "FourOfAKind";
                 fourOfAKindInd = obj.Cards.Value == quadVals;
                 cardSymbols = [obj.Cards.Symbol(fourOfAKindInd);obj.Cards.Symbol(~fourOfAKindInd)];
+                obj.Strength = 700 + quadVals;
 
             elseif ~isempty(tripVals) && ~isempty(pairVals)
                 obj.Type = "FullHouse";
                 tripInd = obj.Cards.Value == tripVals;
                 pairInd = obj.Cards.Value == pairVals;
                 cardSymbols = [obj.Cards.Symbol(tripInd);obj.Cards.Symbol(pairInd)];
+                obj.Strength = 600 + tripVals;
 
             elseif isFlush
                 obj.Type = "Flush";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
+                obj.Strength = 500 + maxCardValue;
 
             elseif isStraight
                 obj.Type = "Straight";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
+                obj.Strength = 400 + maxCardValue;
 
             elseif ~isempty(tripVals)
                 obj.Type = "ThreeOfAKind";
                 tripInd = obj.Cards.Value == tripVals;
                 cardSymbols = [obj.Cards.Symbol(tripInd);obj.Cards.Symbol(~tripInd)];
+                obj.Strength = 300 + tripVals + sum(obj.Cards.Value(~tripInd)./[100;10000]);
 
             elseif numel(pairVals) == 2
                 obj.Type = "TwoPair";
                 pairInd = ismember(obj.Cards.Value,pairVals);
                 cardSymbols = [sort(obj.Cards.Symbol(pairInd),"descend");obj.Cards.Symbol(~pairInd)];
+                obj.Strength = 250 + max(pairVals) + min(pairVals)/100 + obj.Cards.Value(~pairInd)/10000;
 
             elseif numel(pairVals) == 1
                 obj.Type = "Pair";
                 pairInd = obj.Cards.Value == pairVals;
                 cardSymbols = [obj.Cards.Symbol(pairInd);obj.Cards.Symbol(~pairInd)];
+                obj.Strength = 200 + pairVals + sum(obj.Cards.Value(~pairInd)./[10000;1000000;100000000]);
 
             elseif numel(singleVals) == 5
                 obj.Type = "Single";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
+                obj.Strength = 100 + sum(obj.Cards.Value./[1,100,10000,1000000,100000000]);
 
             else
                 obj.Type = "Invalid";
                 cardSymbols = [];
+                obj.Strength = 0;
             end
 
             % Create symbol string representing the hand
