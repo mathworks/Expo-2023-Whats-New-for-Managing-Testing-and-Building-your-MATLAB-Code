@@ -13,7 +13,7 @@ opts.ToolboxName = "Poker Hands Toolbox";
 opts.Summary = "Create poker hands using MATLAB!";
 opts.Description = "Provides tools to create and compare poker hands.";
 opts.AuthorName = "Adam Sifounakis";
-opts.ToolboxVersion = "0.1.0"; 
+opts.ToolboxVersion = "1.0.1"; 
 opts.MinimumMatlabRelease = "R2019a";
 opts.MaximumMatlabRelease = "";
 
