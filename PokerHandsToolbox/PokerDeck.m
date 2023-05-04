@@ -32,6 +32,26 @@ classdef PokerDeck < handle
             cardsInd = ismember(obj.UnshuffledCards.Identifier,ident);
             cards = obj.UnshuffledCards(cardsInd,:);
         end
+
+        function hands = dealPokerHands(obj,numPlayers)
+            %DEAL Deal 5-card poker hands to players (1 player by default)
+            arguments
+                obj
+                numPlayers (1,1) double {mustBeGreaterThanOrEqual(numPlayers,0),mustBeInteger} = 1;
+            end
+
+            hands = PokerHand.empty();
+
+            % Deal cards to each player
+            for ii = numPlayers:-1:1
+                startCardInd = ii;
+                endCardInd = numPlayers*4 + ii;
+                hands(ii) = PokerHand(obj.Cards(startCardInd:numPlayers:endCardInd,:));
+            end
+
+            % Remove dealt cards from shuffled cards
+            obj.Cards(1:numPlayers*5,:) = [];
+        end
     end
 
     methods (Access = private)
