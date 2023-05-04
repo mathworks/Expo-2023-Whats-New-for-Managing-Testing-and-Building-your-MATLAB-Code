@@ -4,13 +4,28 @@ classdef PokerDeck < handle
 
     properties
         Cards
+        UnshuffledCards
     end
 
     methods
-        function obj = PokerDeck()
-            %DECK Creates a deck of cards
+        function obj = PokerDeck(opts)
+            %DECK Creates a deck containing both shuffled cards (Cards) and
+            %unshuffled cards (UnshuffledCards)
+            arguments
+                opts.ShuffleOnCreation (1,1) logical = true;
+            end
 
             obj.initializeDeck();
+            if opts.ShuffleOnCreation
+                obj.shuffle();
+            end
+        end
+
+        function shuffle(obj)
+            %SHUFFLE Shuffle UnshuffledCards -> Cards
+            rng("shuffle");
+            shuffleInd = randperm(height(obj.UnshuffledCards));
+            obj.Cards = obj.UnshuffledCards(shuffleInd,:);
         end
     end
 
@@ -29,9 +44,10 @@ classdef PokerDeck < handle
             cardSymbolsRep = repmat(cardSymbols',4,1);
             cardIdentifiersRep = cardSymbolsRep + extract(suitsRep,regexpPattern("^."));
 
-            obj.Cards = table(cardNamesRep,suitsRep,cardValuesRep,cardSymbolsRep,cardIdentifiersRep, ...
+            obj.UnshuffledCards = table(cardNamesRep,suitsRep,cardValuesRep,cardSymbolsRep,cardIdentifiersRep, ...
                 VariableNames = ["Name","Suit","Value","Symbol","Identifier"]);
-            obj.Cards = sortrows(obj.Cards,["Suit","Value"],["descend","descend"]);
+            obj.UnshuffledCards = sortrows(obj.UnshuffledCards,["Suit","Value"],["descend","descend"]);
+            obj.Cards = obj.UnshuffledCards;
         end
     end
 
