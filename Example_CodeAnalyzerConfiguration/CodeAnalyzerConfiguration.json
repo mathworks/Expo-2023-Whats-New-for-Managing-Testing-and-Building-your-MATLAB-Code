@@ -1,0 +1,61 @@
+{
+    // Configuration File Information
+    "name": "Simple Code Analyzer Configuration Example",
+    "description": "A simple Code Analyzer configuration for better coding practices",
+    "author" : "Adam Sifounakis",
+    "schemaVersion" : "1.0.0",
+    "guidelineVersion" : "0.5.0",
+
+    // Base Configuration Settings
+    "baseConfiguration" : "closestParentFolder",
+
+    // New and Modified Checks
+    "checks":
+    {
+        "DONOTUSEEVAL" :
+        {
+            // Disallow use of eval
+            "rule":
+            {
+                "template": "functionCall",
+                "functionNames" : ["eval","evalc"]
+            },
+            "severity" : "error",
+            "messageText" : "Do not use \"eval\" or \"evalc\" in production code.",
+            "enabled" : true
+        },
+        "FCNIL" :
+        {
+            // Warn when functions have 10 or more input arguments
+            "severity" : "warning",
+            "limit" : 10,
+            "messageText": "Too many input arguments make it hard to understand and use a function.",
+            "enabled": true
+        },
+        "FCNOL" :
+        {
+            // Warn when functions have 10 or more output arguments
+            "severity" : "warning",
+            "messageText": "Too many outputs arguments make it hard to understand and use a function.",
+            "limit" : 15,
+            "enabled": true
+        },
+        "NOANS" :
+        {
+            // Do not use "ans" as a variable
+            "severity" : "error"
+        },
+        "GVMIS" :
+        {
+            // Do not use global variables
+            "severity" : "error"
+        },
+        "CHAIN" :
+        {
+            // Chained logical operations like "a > b > c" are usually a bug
+            // For scalars, it should be: "(a > b) && (b > c)"
+            // For arrays, it should be: "(a > b) & (b > c)" 
+            "severity" : "error"
+        }
+    }
+}
