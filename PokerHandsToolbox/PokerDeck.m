@@ -27,6 +27,11 @@ classdef PokerDeck < handle
             shuffleInd = randperm(height(obj.UnshuffledCards));
             obj.Cards = obj.UnshuffledCards(shuffleInd,:);
         end
+
+        function cards = getCardsByIdentifier(obj,ident)
+            cardsInd = ismember(obj.UnshuffledCards.Identifier,ident);
+            cards = obj.UnshuffledCards(cardsInd,:);
+        end
     end
 
     methods (Access = private)
