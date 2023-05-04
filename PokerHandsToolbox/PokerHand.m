@@ -4,6 +4,7 @@ classdef PokerHand < handle
 
     properties (SetAccess=private)
         Type = "Empty";
+        Symbols = "[]";
     end
     
     properties
@@ -69,38 +70,76 @@ classdef PokerHand < handle
             % Determine hand type by characteristics
             if isStraight && isFlush && maxCardValue == 14
                 obj.Type = "RoyalFlush";
+                [~,sortInd] = sort(obj.Cards.Value,"ascend");
+                cardSymbols = obj.Cards.Symbol(sortInd);
 
             elseif isStraight && isFlush
                 obj.Type = "StraightFlush";
+                [~,sortInd] = sort(obj.Cards.Value,"ascend");
+                cardSymbols = obj.Cards.Symbol(sortInd);
 
             elseif ~isempty(quadVals)
                 obj.Type = "FourOfAKind";
+                fourOfAKindInd = obj.Cards.Value == quadVals;
+                cardSymbols = [obj.Cards.Symbol(fourOfAKindInd);obj.Cards.Symbol(~fourOfAKindInd)];
 
             elseif ~isempty(tripVals) && ~isempty(pairVals)
                 obj.Type = "FullHouse";
+                tripInd = obj.Cards.Value == tripVals;
+                pairInd = obj.Cards.Value == pairVals;
+                cardSymbols = [obj.Cards.Symbol(tripInd);obj.Cards.Symbol(pairInd)];
 
             elseif isFlush
                 obj.Type = "Flush";
+                [~,sortInd] = sort(obj.Cards.Value,"ascend");
+                cardSymbols = obj.Cards.Symbol(sortInd);
 
             elseif isStraight
                 obj.Type = "Straight";
+                [~,sortInd] = sort(obj.Cards.Value,"ascend");
+                cardSymbols = obj.Cards.Symbol(sortInd);
 
             elseif ~isempty(tripVals)
                 obj.Type = "ThreeOfAKind";
+                tripInd = obj.Cards.Value == tripVals;
+                cardSymbols = [obj.Cards.Symbol(tripInd);obj.Cards.Symbol(~tripInd)];
 
             elseif numel(pairVals) == 2
                 obj.Type = "TwoPair";
+                pairInd = ismember(obj.Cards.Value,pairVals);
+                cardSymbols = [sort(obj.Cards.Symbol(pairInd),"descend");obj.Cards.Symbol(~pairInd)];
 
             elseif numel(pairVals) == 1
                 obj.Type = "Pair";
+                pairInd = obj.Cards.Value == pairVals;
+                cardSymbols = [obj.Cards.Symbol(pairInd);obj.Cards.Symbol(~pairInd)];
 
             elseif numel(singleVals) == 5
                 obj.Type = "Single";
+                [~,sortInd] = sort(obj.Cards.Value,"ascend");
+                cardSymbols = obj.Cards.Symbol(sortInd);
 
             else
                 obj.Type = "Invalid";
+                cardSymbols = [];
             end
 
+            % Create symbol string representing the hand
+            obj.Symbols = obj.createSymbolString(cardSymbols);
+
+        end
+
+        function symbolStr = createSymbolString(obj,cardSymbols)
+            arguments
+                obj
+                cardSymbols = obj.Cards.Symbol;
+            end
+
+            if ismember(obj.Type,["Empty","Invalid"])
+                symbolStr = "[]";
+            else
+                symbolStr = "[" + join(cardSymbols,"][") + "]";
+            end
         end
     end
 
