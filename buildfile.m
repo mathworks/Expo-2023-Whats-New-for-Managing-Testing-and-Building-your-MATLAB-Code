@@ -55,7 +55,8 @@ filesToClean = context.Task.Inputs.paths;
 for ii = 1:numel(filesToClean)
     if isfile(filesToClean(ii))
         delete(filesToClean(ii));
-        disp("Deleted: " + filesToClean(ii));
+        relPath = erase(filesToClean(ii),context.Plan.RootFolder+filesep);
+        disp("Deleted: " + relPath);
     end
 end
 

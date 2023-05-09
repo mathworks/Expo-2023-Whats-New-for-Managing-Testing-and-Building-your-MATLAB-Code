@@ -3,8 +3,8 @@
     "name": "Simple Code Analyzer Configuration Example",
     "description": "A simple Code Analyzer configuration for better coding practices",
     "author" : "Adam Sifounakis",
-    "schemaVersion" : "1.0.0",
     "guidelineVersion" : "0.5.0",
+    "schemaVersion" : "1.0.0",
 
     // Base Configuration Settings
     "baseConfiguration" : "closestParentFolder",
@@ -54,7 +54,7 @@
         {
             // Chained logical operations like "a > b > c" are usually a bug
             // For scalars, it should be: "(a > b) && (b > c)"
-            // For arrays, it should be: "(a > b) & (b > c)" 
+            // For arrays, it should be: "(a > b) & (b > c)"
             "severity" : "error"
         }
     }
