@@ -1,5 +1,5 @@
-[![MATLAB](https://github.com/sifounak/MATLAB-Expo-2023_Whats-New-in-Managing-Testing-and-Building-Your-MATLAB-Code/actions/workflows/ci.yml/badge.svg)](https://github.com/sifounak/MATLAB-Expo-2023_Whats-New-in-Managing-Testing-and-Building-Your-MATLAB-Code/actions/workflows/ci.yml) 
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=sifounak/MATLAB-Expo-2023_Whats-New-in-Managing-Testing-and-Building-Your-MATLAB-Code&project=WorkshopProject.prj&file=WorkshopGuide.mlx)
+[![MATLAB](https://github.com/mathworks/Expo-2023-Whats-New-for-Managing-Testing-and-Building-your-MATLAB-Code/actions/workflows/ci.yml/badge.svg)](https://github.com/mathworks/Expo-2023-Whats-New-for-Managing-Testing-and-Building-your-MATLAB-Code/actions/workflows/ci.yml) 
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=mathworks/Expo-2023-Whats-New-for-Managing-Testing-and-Building-your-MATLAB-Code&project=WorkshopProject.prj&file=WorkshopGuide.mlx)
 
 # What's new for managing, testing, and building your MATLAB<sup>&reg;</sup> code
 
