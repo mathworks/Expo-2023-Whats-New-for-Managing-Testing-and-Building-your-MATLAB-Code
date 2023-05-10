@@ -25,6 +25,7 @@ classdef testPokerHandComparisons < matlab.unittest.TestCase
             hand1 = PokerHand(cards1);
             hand2 = PokerHand(cards2);
             
+            testCase.verifyNumElements(hand1>hand2,1);
             testCase.verifyGreaterThan(hand1,hand2);
             testCase.verifyLessThan(hand2,hand1);
             testCase.verifyNotEqual(hand1,hand2);

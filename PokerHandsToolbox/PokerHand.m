@@ -170,7 +170,7 @@ classdef PokerHand < handle
                 obj.Type = "Single";
                 [~,sortInd] = sort(obj.Cards.Value,"ascend");
                 cardSymbols = obj.Cards.Symbol(sortInd);
-                obj.Strength = 100 + sum(obj.Cards.Value./[1,100,10000,1000000,100000000]);
+                obj.Strength = 100 + sum(obj.Cards.Value./[1;100;10000;1000000;100000000]);
 
             else
                 obj.Type = "Invalid";
