@@ -1,5 +1,6 @@
 function stats = pokerHandStats(handType)
-%POKERHANDSTATS Returns a table of poker hand statss
+%POKERHANDSTATS Returns a table of the likelihood of getting specific poker
+%hands
 
 arguments
     handType string {mustBeScalarOrEmpty, ...

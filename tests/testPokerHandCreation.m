@@ -1,5 +1,6 @@
 classdef testPokerHandCreation < matlab.unittest.TestCase
-
+%TESTPOKERHANDCREATION Tests the creation and identification of every type
+%of poker hand
     properties
         Deck = PokerDeck();
     end
@@ -20,8 +21,6 @@ classdef testPokerHandCreation < matlab.unittest.TestCase
     end
 
     methods (Test, ParameterCombination="sequential")
-        % Test methods
-
         function testCreatePokerHands(testCase,handInfo)
             expectedHandType = handInfo{1};
             

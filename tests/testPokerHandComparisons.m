@@ -1,5 +1,6 @@
 classdef testPokerHandComparisons < matlab.unittest.TestCase
-
+%TESTPOKERHANDCOMPARISONS Tests the >, <, and ~= PokerHand comparison
+%operations
     properties
         Deck = PokerDeck();
     end
@@ -18,8 +19,6 @@ classdef testPokerHandComparisons < matlab.unittest.TestCase
     end
 
     methods (Test, ParameterCombination="sequential")
-        % Test methods
-
         function testCreatePokerHands(testCase,handGreaterThan)
             cards1 = testCase.Deck.getCardsByIdentifier(handGreaterThan{1});
             cards2 = testCase.Deck.getCardsByIdentifier(handGreaterThan{2});

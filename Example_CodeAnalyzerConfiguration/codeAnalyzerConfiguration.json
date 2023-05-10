@@ -37,7 +37,7 @@
             // Warn when functions have 10 or more output arguments
             "severity" : "warning",
             "messageText": "Too many outputs arguments make it hard to understand and use a function.",
-            "limit" : 15,
+            "limit" : 10,
             "enabled": true
         },
         "NOANS" :

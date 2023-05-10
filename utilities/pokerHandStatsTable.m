@@ -1,5 +1,6 @@
 function probabilityTable = pokerHandStatsTable()
-%POKERHANDSTATS Returns a table of poker hand statistics
+%POKERHANDSTATS Returns a table of the likelihood of getting every kind of
+%poker hand
 
 data = { ...
     "RoyalFlush", 4; ...

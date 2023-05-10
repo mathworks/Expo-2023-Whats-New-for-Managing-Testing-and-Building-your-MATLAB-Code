@@ -1,8 +1,8 @@
 classdef testToolboxPackaging < matlab.unittest.TestCase
+%TESTTOOLBOXPACKAGING Tests that the toolbox packaging operation generates
+%an MLTBX file
 
     methods (Test)
-        % Test methods
-
         function toolboxPackagingTest(testCase)
             % Test that toolbox packaging does not error and that we are
             % left with the expected toolbox

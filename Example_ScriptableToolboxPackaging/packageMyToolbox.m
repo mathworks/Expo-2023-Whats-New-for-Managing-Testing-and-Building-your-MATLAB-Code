@@ -1,4 +1,6 @@
 function packageMyToolbox(toolboxOpts,opts)
+%PACKAGEMYTOOLBOX Packages a MATLAB toolbox and optionally displays the output file path.
+
 arguments
     toolboxOpts = pokerHandToolboxDefinition();
     opts.DisplayOutputFilePath = true;
@@ -20,4 +22,3 @@ if opts.DisplayOutputFilePath
 end
 
 end
-

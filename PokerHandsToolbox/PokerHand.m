@@ -1,6 +1,5 @@
 classdef PokerHand < handle
-    %POKERHAND Create and identify poker hands
-    %   Provides an easy way to represent and compare poker hands
+    %POKERHAND Provides an easy way to represent and compare poker hands
 
     properties (SetAccess=private)
         Type = "Empty";
@@ -17,7 +16,7 @@ classdef PokerHand < handle
 
     methods
         function obj = PokerHand(cards)
-            %POKERHAND Creates a poker hand from a set of cards
+            %POKERHAND Provides an easy way to represent and compare poker hands
             arguments
                 cards = [];
             end
@@ -42,6 +41,7 @@ classdef PokerHand < handle
             obj.determineHandTypeAndStrength();
         end
 
+        % Comparison operations
         function handIsGreater = gt(obj,otherHand)
             handIsGreater = obj.Strength > otherHand.Strength;
         end
@@ -70,8 +70,8 @@ classdef PokerHand < handle
 
     methods (Access = private)
         function determineHandTypeAndStrength(obj)
-            %DETERMINEHANDTYPEANDSTRENGTH Determines hand type and strength
-            %of hand using a points-based strength system
+            %DETERMINEHANDTYPEANDSTRENGTH Determines hand type, and
+            %calculates hand strength using a points-based strength system
             % 
             % Points:
             %   -- Invalid       = 0 points
@@ -184,6 +184,8 @@ classdef PokerHand < handle
         end
 
         function symbolStr = createSymbolString(obj,cardSymbols)
+            %CREATESYMBOLSTRING Creates an easy-to-read representation of a
+            %poker hand (e.g., [10][J][Q][K][A])
             arguments
                 obj
                 cardSymbols = obj.Cards.Symbol;
@@ -199,6 +201,7 @@ classdef PokerHand < handle
 
     methods (Static)
         function obj = empty()
+            %EMPTY Creates an empty PokerHand object
             obj = PokerHand();
             obj(:) = [];
         end

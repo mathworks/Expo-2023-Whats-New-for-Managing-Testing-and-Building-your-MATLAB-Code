@@ -1,6 +1,6 @@
 classdef PokerDeck < handle
-    %DECK A deck of cards
-    %   An easy way to work with a standard deck of cards (without jokers)
+%POKERDECK Creates a deck of cards (without jokers) containing both
+%shuffled cards (Cards) and unshuffled cards (UnshuffledCards)
 
     properties
         Cards
@@ -9,7 +9,7 @@ classdef PokerDeck < handle
 
     methods
         function obj = PokerDeck(opts)
-            %DECK Creates a deck containing both shuffled cards (Cards) and
+            %POKERDECK Creates a deck containing both shuffled cards (Cards) and
             %unshuffled cards (UnshuffledCards)
             arguments
                 opts.ShuffleOnCreation (1,1) logical = true;
@@ -37,9 +37,26 @@ classdef PokerDeck < handle
             %DEAL Deal 5-card poker hands to players (1 player by default)
             arguments
                 obj
-                numPlayers (1,1) double {mustBeGreaterThanOrEqual(numPlayers,0),mustBeInteger} = 1;
+                numPlayers (1,1) double { ...
+                    mustBeInteger, ...
+                    mustBeGreaterThanOrEqual(numPlayers,0), ...
+                    mustBeLessThanOrEqual(numPlayers,10)} = 1;
             end
 
+            % Check if there aren't enough cards to deal, and tell the
+            % player to shuffle again before dealing
+            if height(obj.Cards) < numPlayers*5
+                pluralStr = "";
+                if numPlayers > 1
+                    pluralStr = "s";
+                end
+                errMsg = [ ...
+                    "Not enough cards in the deck to deal " + numPlayers + " poker hand" + pluralStr + "."; ...
+                    "Please shuffle the deck before dealing the cards again."];
+                error(join(errMsg,newline));
+            end
+
+            % Initialize an empty hand
             hands = PokerHand.empty();
 
             % Deal cards to each player
@@ -56,8 +73,7 @@ classdef PokerDeck < handle
 
     methods (Access = private)
         function initializeDeck(obj)
-            %INITIALIZEDECK Initializes a standard deck of cards without
-            %jokers
+            %INITIALIZEDECK Initializes a standard deck of cards without jokers
             suits = ["Clubs","Diamonds","Hearts","Spades"];
             cardNames = [string(2:10),"Jack","Queen","King","Ace"];
             cardValues = 2:14;
@@ -78,6 +94,7 @@ classdef PokerDeck < handle
 
     methods (Static)
         function emptyCards = empty()
+            %EMPTY Creates an empty PokerDeck object
             d = PokerDeck(ShuffleOnCreation=false);
             emptyCards = d.UnshuffledCards([],:);
         end
