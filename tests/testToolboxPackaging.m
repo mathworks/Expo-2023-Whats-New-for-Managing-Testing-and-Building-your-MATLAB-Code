@@ -12,7 +12,7 @@ classdef testToolboxPackaging < matlab.unittest.TestCase
             folderFixture = testCase.applyFixture(TemporaryFolderFixture);
             
             % Change MLTBX file destination to temporary folder
-            toolboxOpts = pokerHandToolboxDefinition();
+            toolboxOpts = pokerHandsToolboxDefinition();
             [~,fileName,fileExt] = fileparts(toolboxOpts.OutputFile);
             toolboxOpts.OutputFile = fullfile(folderFixture.Folder,fileName+fileExt);
 

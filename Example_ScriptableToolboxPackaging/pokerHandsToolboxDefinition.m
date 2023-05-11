@@ -1,13 +1,16 @@
-function opts = pokerHandToolboxDefinition()
+function opts = pokerHandsToolboxDefinition()
 %POKERHANDTOOLBOXDEFINITION Returns a ToolboxOptions object for the Poker Hands Toolbox
 %
-%  opts = pokerHandToolboxDefinition() returns a ToolboxOptions object that can be used to create a MATLAB Toolbox for the Poker Hands Toolbox.
+%  opts = pokerHandsToolboxDefinition() returns a ToolboxOptions object that
+%  can be used to create a MATLAB Toolbox for the Poker Hands Toolbox.
 %
 %  Example:
-%     opts = pokerHandToolboxDefinition();
+%     opts = pokerHandsToolboxDefinition();
 %     matlab.addons.toolbox.packageToolbox(opts);
 %
-%  See also matlab.project.rootProject, matlab.addons.toolbox.ToolboxOptions, matlab.addons.toolbox.packageToolbox
+%  See also matlab.project.rootProject,
+%  matlab.addons.toolbox.ToolboxOptions,
+%  matlab.addons.toolbox.packageToolbox
 
 proj = matlab.project.rootProject();
 

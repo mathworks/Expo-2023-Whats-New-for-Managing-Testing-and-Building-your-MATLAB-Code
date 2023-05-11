@@ -13,7 +13,7 @@ plan.DefaultTasks = "test";
 codeFiles = fullfile("PokerHandsToolbox","*");
 testFiles = fullfile("tests","*");
 tbxPackagingFiles = fullfile("Example_ToolboxOptionsObject","*");
-tbxOutputFile = pokerHandToolboxDefinition().OutputFile;
+tbxOutputFile = pokerHandsToolboxDefinition().OutputFile;
 
 
 % Configure tasks
