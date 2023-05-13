@@ -3,58 +3,96 @@
     "name": "Simple Code Analyzer Configuration Example",
     "description": "A simple Code Analyzer configuration for better coding practices",
     "author" : "Adam Sifounakis",
-    "guidelineVersion" : "0.5.0",
+    "guidelineVersion" : "0.1.0",
     "schemaVersion" : "1.0.0",
 
     // Base Configuration Settings
-    "baseConfiguration" : "closestParentFolder",
+    // For better consistency, use "factory" for the configuration at the root of your codebase,
+    // and use "closestParentFolder" for configurations nested within your codebase
+    "baseConfiguration" : "factory",
 
     // New and Modified Checks
     "checks":
     {
-        "DONOTUSEEVAL" :
+        // ======================================
+        // Enable additional Code Analyzer checks
+        // ======================================
+
+        // Disallow use of eval* functions
+        "DISALLOWEVAL" :
         {
-            // Disallow use of eval
             "rule":
             {
                 "template": "functionCall",
                 "functionNames" : ["eval","evalc"]
             },
             "severity" : "error",
-            "messageText" : "Do not use \"eval\" or \"evalc\" in production code.",
+            "messageText" : "The use of \"eval\" and \"evalc\" is forbidden in production code.",
             "enabled" : true
         },
+
+        // Disallow very long functions (too many lines)
+        "FCNLL" :
+        {
+            "limit" : 2000,
+            "severity" : "error",
+            "enabled" : true
+        },
+
+        // Disallow very long lines (too many characters)
+        "LLMNC" :
+        {
+            "limit" : 1000,
+            "severity" : "error",
+            "enabled" : true
+        },
+
+        // Disallow the use of deeply nested control statements
+        "MNCSN" :
+        {
+            "limit" : 10,
+            "severity" : "error",
+            "enabled": true
+        },
+
+        // Warn when functions have 10 or more input arguments
         "FCNIL" :
         {
-            // Warn when functions have 10 or more input arguments
-            "severity" : "warning",
             "limit" : 10,
-            "messageText": "Too many input arguments make it hard to understand and use a function.",
+            "severity" : "warning",
             "enabled": true
         },
+
+        // Warn when functions have 10 or more output arguments
         "FCNOL" :
         {
-            // Warn when functions have 10 or more output arguments
-            "severity" : "warning",
-            "messageText": "Too many outputs arguments make it hard to understand and use a function.",
             "limit" : 10,
+            "severity" : "warning",
             "enabled": true
         },
-        "NOANS" :
-        {
-            // Do not use "ans" as a variable
-            "severity" : "error"
-        },
+
+
+        // ==================================================
+        // Increase severity of existing Code Analyzer checks
+        // ==================================================
+
+        // Do not use global variables
         "GVMIS" :
         {
-            // Do not use global variables
             "severity" : "error"
         },
+
+        // Do not use "ans" as a variable
+        "NOANS" :
+        {
+            "severity" : "error"
+        },
+
+        // Chained logical operations like "a > b > c" are usually a bug
+        //     For scalars, it should be: "(a > b) && (b > c)"
+        //     For arrays, it should be: "(a > b) & (b > c)"
         "CHAIN" :
         {
-            // Chained logical operations like "a > b > c" are usually a bug
-            // For scalars, it should be: "(a > b) && (b > c)"
-            // For arrays, it should be: "(a > b) & (b > c)"
             "severity" : "error"
         }
     }
