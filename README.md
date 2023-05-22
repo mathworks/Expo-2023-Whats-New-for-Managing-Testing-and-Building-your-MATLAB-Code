@@ -12,7 +12,7 @@ This workshop provides hands-on experience using some of MATLAB's latest feature
 To get started with the workshop, click on the "Open in MATLAB Online" badge.
 
 The badge automatically:
-* navigate you to MATLB Online
+* navigate you to MATLAB Online
 * clone the workshop material to your MATLAB Online account
 * open the workshop project
 * open the WorkshopGuide.mlx file
