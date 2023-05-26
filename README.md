@@ -21,7 +21,7 @@ The badge automatically:
 
 
 ## About the workshop
-A brief introduction to some of the latest features aimed at better managing, testing, and building your code is included in the [workshop slides](<Slides - What's new in managing, testing, and building your MATLAB code.pdf>).
+A brief introduction to some of the latest features aimed at better managing, testing, and building your code is included in the [workshop presentation](<WorkshopPresentation.pdf>).
 
 The hands-on portion of the workshop will walk you through the steps listed in the [WorkshopGuide.pdf](WorkshopGuide.pdf) (or [WorkshopGuide.mlx](WorkshopGuide.mlx)), and will focus on the following features
 * Exploring  repository history with **`Branch Manager`**
