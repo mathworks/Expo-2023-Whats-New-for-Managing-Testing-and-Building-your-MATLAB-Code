@@ -10,7 +10,7 @@ end
 plan.DefaultTasks = "test";
 
 % Create shorthand for files/folders
-codeFiles = fullfile("PokerHandsToolbox","*");
+codeFiles = fullfile("toolbox","*");
 testFiles = fullfile("tests","*");
 tbxPackagingFiles = fullfile("Example_ToolboxOptionsObject","*");
 tbxOutputFile = pokerHandsToolboxDefinition().OutputFile;

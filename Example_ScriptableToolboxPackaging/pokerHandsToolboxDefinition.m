@@ -14,7 +14,7 @@ function opts = pokerHandsToolboxDefinition()
 
 proj = matlab.project.rootProject();
 
-toolboxFolder = fullfile(proj.RootFolder,"PokerHandsToolbox");
+toolboxFolder = fullfile(proj.RootFolder,"toolbox");
 identifier = "1ddfb497-6c7f-41a1-a9d9-a2eab46eb945"; % Please modify this identifier for your toolbox
 opts = matlab.addons.toolbox.ToolboxOptions(toolboxFolder,identifier);
 
