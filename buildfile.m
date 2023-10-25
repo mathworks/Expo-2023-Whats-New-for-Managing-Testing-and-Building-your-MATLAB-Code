@@ -12,16 +12,17 @@ plan.DefaultTasks = "test";
 codeFiles = fullfile("toolbox","*");
 plan("test") = TestTask("tests", ...
     SourceFiles=codeFiles, ...
-    OutputDetail="terse", ...
-    Dependencies="check");     
+    OutputDetail="terse");     
+% plan("test").Dependencies="check";
 
 tbxPackagingFiles = fullfile("Example_ScriptableToolboxPackaging","*");
 tbxOutputFile = pokerHandsToolboxDefinition().OutputFile;
 plan("toolbox").Inputs = [codeFiles,tbxPackagingFiles];
 plan("toolbox").Outputs = tbxOutputFile;
+plan("toolbox").Dependencies = "test";
 % plan("toolbox").Dependencies = ["check","test"];
 
-% Have the clean task try to clean the outputs of the toolbox task, if it exists
+% Clean the task outputs
 plan("clean") = CleanTask;
 
 end
