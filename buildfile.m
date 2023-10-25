@@ -1,82 +1,36 @@
 function plan = buildfile
-plan = buildplan(localfunctions);
+import matlab.buildtool.tasks.*
 
-% Open project if it is not open
-if isempty(matlab.project.rootProject)
-    openProject(plan.RootFolder);
-end
+plan = buildplan(localfunctions);
 
 % Set default task
 plan.DefaultTasks = "test";
 
-% Create shorthand for files/folders
-codeFiles = fullfile("toolbox","*");
-testFiles = fullfile("tests","*");
-tbxPackagingFiles = fullfile("Example_ToolboxOptionsObject","*");
-tbxOutputFile = pokerHandsToolboxDefinition().OutputFile;
-
-
 % Configure tasks
+% plan("check") = CodeIssuesTask();
 
-plan("test").Inputs = [codeFiles,testFiles];
-% plan("test").Dependencies = "check";
+codeFiles = fullfile("toolbox","*");
+plan("test") = TestTask("tests", ...
+    SourceFiles=codeFiles, ...
+    OutputDetail="terse");     
+% plan("test").Dependencies="check";
 
+tbxPackagingFiles = fullfile("Example_ScriptableToolboxPackaging","*");
+tbxOutputFile = pokerHandsToolboxDefinition().OutputFile;
 plan("toolbox").Inputs = [codeFiles,tbxPackagingFiles];
 plan("toolbox").Outputs = tbxOutputFile;
 plan("toolbox").Dependencies = "test";
 % plan("toolbox").Dependencies = ["check","test"];
 
-% Have the clean task try to clean the outputs of the toolbox task, if it exists
-plan("clean").Inputs = matlab.buildtool.io.Glob(tbxOutputFile);
+% Clean the task outputs
+plan("clean") = CleanTask;
 
 end
 
 
 %% Tasks
 
-function testTask(context)
-% Run all tests
-testFolder = fullfile(context.Plan.RootFolder, "tests");
-results = runtests(testFolder, ...
-    IncludeSubfolders = true, ...
-    OutputDetail = "terse");
-results.assertSuccess;
-end
-
 function toolboxTask(~)
 % Package toolbox
 packageMyToolbox();
 end
-
-function cleanTask(context)
-% Remove auto-generated files
-
-filesToClean = context.Task.Inputs.paths;
-for ii = 1:numel(filesToClean)
-    if isfile(filesToClean(ii))
-        delete(filesToClean(ii));
-        relPath = erase(filesToClean(ii),context.Plan.RootFolder+filesep);
-        disp("Deleted: " + relPath);
-    end
-end
-
-end
-
-% function checkTask(context)
-% % Identify code issues
-% codeResults = codeIssues(context.Plan.RootFolder);
-% 
-% errInd = codeResults.Issues.Severity == "error";
-% if any(errInd)
-%     disp(" ");
-%     disp("FAILED! Found critical errors in your code:");
-%     disp(codeResults.Issues(errInd,:));
-%     disp(" ");
-% 
-%     errMsg = "Code Analyzer found critical errors in your code." + newline + ...
-%         "Please see diagnostics above.";
-%     error(errMsg);
-% end
-% 
-% end
-
